@@ -20,6 +20,8 @@ body{
     display: flex;
     flex-direction: column;
 
+    margin-bottom: 160px;
+
     width: 100%;
 }
 
@@ -62,8 +64,8 @@ body{
     display: block;
     touch-action: none;
 
-    width: 320px;
-    height: 320px;
+    width: 256px;
+    height: 256px;
 
     border: solid 1px black;
 }
@@ -104,29 +106,29 @@ body{
                     <p><b>-1&Cross;-1=1</b>, so any <b>negative</b> number squared is a <b>positive</b> number.</p>
                     <p>So what is the <b>square root</b> of a negative number? What times itself equals <b>-1</b>?</p>
                     <p>Let's call the square root of -1 <b>i</b>. All we know about <b>i</b> is that <b>i&Cross;i=-1</b>.</p>
-                    <p>There's no <b>i</b> on our left-right number line, so it goes on a new <b>up-down number line</b>.</p>
+                    <p>There's no <b>i</b> on our left-right number line, so it goes on a new <b>up-down</b> number line.</p>
                 </div>
                 <div class="displays" id="squareDisplays">
-                    <canvas class="canvas" id="rootCanvas" width="320" height="320"></canvas>
+                    <canvas class="canvas" id="rootCanvas" width="256" height="256"></canvas>
                     <div class="operator" id="operator" style="width:180px;">square()=</div>
-                    <canvas class="canvas" id="squareCanvas" width="320" height="320"></canvas>
+                    <canvas class="canvas" id="squareCanvas" width="256" height="256"></canvas>
                 </div>
             </div>
 
             <div class="section">
                 <div class="heading">Points on a Plane</div>
                 <div class="paragraph">
-                    <p>Our two number lines make an XY plane, where each point is <b>X+Yi</b></p>
-                    <p>We can add points together—<b>2i+2i=4i</b>, just like <b>2+2=4</b></p>
-                    <p><b>Add</b> any two points, and you get another point.</p>
+                    <p>Our two number lines make an <b>XY plane</b>. Each point is <b>X+Yi</b></p>
+                    <p>We can <b>add</b> points together—<b>2i+2i=4i</b>, just like <b>2+2=4</b></p>
+                    <p>Add any two points, and you get another point.</p>
                     <p>Now we can move points around the plane!</p>
                 </div>
                 <div class="displays" id="addDisplays">
-                    <canvas class="canvas" id="aCanvas" width="320" height="320"></canvas>
-                    <div class="operator" id="operator" style="width:80px;"><b>+</b></div>
-                    <canvas class="canvas" id="bCanvas" width="320" height="320"></canvas>
-                    <div class="operator" id="equals" style="width:80px;"><b>=</b></div>
-                    <canvas class="canvas" id="cCanvas" width="320" height="320"></canvas>
+                    <canvas class="canvas" id="aCanvas" width="256" height="256"></canvas>
+                    <div class="operator" id="operator" style="width:30px;"><b>+</b></div>
+                    <canvas class="canvas" id="bCanvas" width="256" height="256"></canvas>
+                    <div class="operator" id="equals" style="width:30px;"><b>=</b></div>
+                    <canvas class="canvas" id="cCanvas" width="256" height="256"></canvas>
                 </div>
             </div>
 
@@ -138,11 +140,11 @@ body{
                     <p>Now we can spin things around!</p>
                 </div>
                 <div class="displays" id="multiplyDisplays">
-                    <canvas class="canvas" id="aCanvas" width="320" height="320"></canvas>
-                    <div class="operator" id="operator" style="width:80px;">&Cross;</div>
-                    <canvas class="canvas" id="bCanvas" width="320" height="320"></canvas>
-                    <div class="operator" id="equals" style="width:80px;"><b>=</b></div>
-                    <canvas class="canvas" id="cCanvas" width="320" height="320"></canvas>
+                    <canvas class="canvas" id="aCanvas" width="256" height="256"></canvas>
+                    <div class="operator" id="operator" style="width:30px;">&Cross;</div>
+                    <canvas class="canvas" id="bCanvas" width="256" height="256"></canvas>
+                    <div class="operator" id="equals" style="width:30px;"><b>=</b></div>
+                    <canvas class="canvas" id="cCanvas" width="256" height="256"></canvas>
                 </div>
             </div>
         </div>
