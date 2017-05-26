@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<style>
+html{
+    width:100%;
+    height:100%;
+    margin: 0;
+    padding: 0;
+}
+body{
+    font-family: Verdana, Geneva, sans-serif;
+
+    width:100%;
+    height:100%;
+    background-color:#FFFFFF;
+    margin: 0;
+    padding: 0;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+
+    width: 100%;
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    margin: 64px auto;
+}
+
+.heading {
+    margin: 16px auto;
+
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.paragraph {
+    margin: 16px auto;
+    font-size: 24px;
+
+    text-align: center;
+}
+
+.displays {
+    display: flex;
+    margin: 16px auto;
+}
+
+.operator {
+    align-self: center;
+
+    margin: 0;
+    padding: 4px;
+
+    font-size: 24px;
+    text-align: center;
+}
+
+.canvas {
+    display: block;
+    touch-action: none;
+
+    width: 320px;
+    height: 320px;
+
+    border: solid 1px black;
+}
+
+</style>
+    <html>
+    <head>
+        <meta charset="utf-8">
+        <title>Simple Numbers</title>
+
+        <script language="javascript" src="./libs/mathjs/dist/math.js" type="text/javascript"></script>
+        <script language="javascript" src="./libs/minpubsub/minpubsub.js" type="text/javascript"></script>
+
+        <script language="javascript" src="./js/squaredisplays.js" type="text/javascript"></script>
+        <script language="javascript" src="./js/adddisplays.js" type="text/javascript"></script>
+        <script language="javascript" src="./js/multiplydisplays.js" type="text/javascript"></script>
+        <script language="javascript" src="./js/layer.js" type="text/javascript"></script>
+        <script language="javascript" src="./js/grid.js" type="text/javascript"></script>
+        <script language="javascript" src="./js/util.js" type="text/javascript"></script>
+
+        <link rel="icon" type="image/png" href="/favicon.png"/>
+    </head>
+    <body>
+        
+        <div class="content" id="content">
+            <div class="section">
+                <div class="heading">Squares & Roots</div>
+                <div class="paragraph">
+                    <p><b>Square</b> any number, and you get another number.</p>
+                    <!-- <p><b>Square</b> any number, and you get another number.</p> -->
+                    <p><b>-1&Cross;-1=1</b>, so any <b>negative</b> number squared is a <b>positive</b> number.</p>
+                    <p>So what is the <b>square root</b> of a negative number? What times itself equals <b>-1</b>?</p>
+                    <p>Let's call the square root of -1 <b>i</b>. All we know about <b>i</b> is that <b>i&Cross;i=-1</b>.</p>
+                    <p>There's no <b>i</b> on our left-right number line, so it goes on a new up-down number line.</p>
+                </div>
+                <div class="displays" id="squareDisplays">
+                    <canvas class="canvas" id="rootCanvas" width="320" height="320"></canvas>
+                    <div class="operator" id="operator" style="width:180px;">square()=</div>
+                    <canvas class="canvas" id="squareCanvas" width="320" height="320"></canvas>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="heading">Add & Subtract</div>
+                <div class="paragraph">
+                    <p>Our two number lines make an XY plane, where each point is <b>X+Yi</b></p>
+                    <p>We can add points together—<b>2i+2i=4i</b>, just like <b>2+2=4</b></p>
+                    <p><b>Add</b> any two points, and you get another point.</p>
+                    <p>Now we can move points around the plane!</p>
+                </div>
+                <div class="displays" id="addDisplays">
+                    <canvas class="canvas" id="aCanvas" width="320" height="320"></canvas>
+                    <div class="operator" id="operator" style="width:80px;"><b>+</b></div>
+                    <canvas class="canvas" id="bCanvas" width="320" height="320"></canvas>
+                    <div class="operator" id="equals" style="width:80px;"><b>=</b></div>
+                    <canvas class="canvas" id="cCanvas" width="320" height="320"></canvas>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="heading">Multiply & Divide</div>
+                <div class="paragraph">
+                    <p>We can also <b>multiply</b> points. Remember that <b>i&Cross;i=-1</b>, so <b>2i&Cross;3i=-6</b></p>
+                    <p>Multiplying a point will <b>scale</b> and <b>rotate</b> it.</p>
+                    <p>Now we can spin things around!</p>
+                </div>
+                <div class="displays" id="multiplyDisplays">
+                    <canvas class="canvas" id="aCanvas" width="320" height="320"></canvas>
+                    <div class="operator" id="operator" style="width:80px;">&Cross;</div>
+                    <canvas class="canvas" id="bCanvas" width="320" height="320"></canvas>
+                    <div class="operator" id="equals" style="width:80px;"><b>=</b></div>
+                    <canvas class="canvas" id="cCanvas" width="320" height="320"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <script type='text/javascript'>
+            var squareDiplay = SquareRoot({
+                element: document.getElementById("squareDisplays"),
+            });
+            var addDisplay = BinaryOperator({
+                element: document.getElementById("addDisplays"),
+            });
+            var multiplyDisplay = BinaryOperator({
+                element: document.getElementById("multiplyDisplays"),
+                operation: math.multiply,
+            });
+        </script>
+    </body>
+</html>
