@@ -209,7 +209,7 @@ InDisplay = function(spec){
 			context.beginPath();
 			context.arc(x, y, r, 0, math.pi*2);
 			if (interactive) context.fillStyle = "#08F";
-			else context.fillStyle = "#888";
+			else context.fillStyle = "#444";
 			context.fill();
 		}
 	}
@@ -410,7 +410,7 @@ OutDisplay = function(spec){
 			context.beginPath();
 			context.arc(x, y, r, 0, math.pi*2);
 			if (interactive) context.fillStyle = "#08F";
-			else context.fillStyle = "#888";
+			else context.fillStyle = "#444";
 			context.fill();
 		}
 

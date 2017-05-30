@@ -212,7 +212,7 @@ function Layer(spec){
         var touch = event.touches[0];
         var mouseEvent = new MouseEvent("mousedown", {
             clientX: touch.clientX,
-            clientY: touch.clientY,
+            clientY: touch.offsetY,
             offsetX: touch.offsetX,
             offsetY: touch.offsetY,
         });
@@ -229,7 +229,7 @@ function Layer(spec){
         var touch = event.touches[0];
         var mouseEvent = new MouseEvent("mousemove", {
             clientX: touch.clientX,
-            clientY: touch.clientY,
+            clientY: touch.offsetY,
             offsetX: touch.offsetX,
             offsetY: touch.offsetY,
         });
