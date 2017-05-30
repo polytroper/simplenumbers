@@ -318,8 +318,10 @@ OperandDisplay = function(spec){
 
 	var onMouseMove = function(event){
 		if (interactive && click) {
+			var rect = canvas.getBoundingClientRect();
+
 			var x = untransformX(event.offsetX);
-			var y = untransformY(event.clientY-canvas.offsetTop);
+			var y = untransformY(event.clientY-rect.top);
 			value = math.complex(trunc(x, 1), trunc(y, 1));
 			setOperandValue(value);
 			clearExpression();
