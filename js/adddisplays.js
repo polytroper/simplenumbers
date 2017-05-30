@@ -88,7 +88,7 @@ BinaryOperator = function(spec){
 		for (var i = 0; i < inValues.length; i++) {
 			outValues.push(operation(inValues[i], operandValue));
 		}
-    	for (var i = 0; i < layers.length; i++) {
+    	for (var i = 1; i < layers.length; i++) {
     		layers[i].refresh();
     	}
 	}
@@ -126,15 +126,15 @@ BinaryOperator = function(spec){
 	}
 
 	var onAnimation0Click = function(){
-		expression = math.compile("sin(t*pi/2)");
+		expression = math.compile("sin(t*pi/4)");
 	}
 
 	var onAnimation1Click = function(){
-		expression = math.compile("sin(t*pi/2)*i");
+		expression = math.compile("sin(t*pi/4)*i");
 	}
 
 	var onAnimation2Click = function(){
-		expression = math.compile("e^(t*pi*i/2)");
+		expression = math.compile("e^(t*pi*i/4)");
 	}
 
 	var clearExpression = function(){
