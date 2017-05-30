@@ -99,6 +99,15 @@ iframe {
     color: #FFF;
 }
 
+.operator > div {
+    display: inline;
+
+    font-size: 24px;
+    text-align: center;
+
+    transition: 0.5s;
+}
+
 .dynamicCanvas {
     display: block;
     touch-action: none;
@@ -126,13 +135,14 @@ iframe {
 }
 
 .animations {
-    margin-top: 48px;
+    display: flex;
+    margin: 48px auto 0px auto;
 
 }
 
 .animation {
-    margin: 16px auto;
-    width: 192px;
+    margin: 0px 8px;
+    width: 160px;
     height: 40px;
 
     line-height: 36px;
@@ -186,12 +196,12 @@ iframe {
                 <div class="paragraph">
                     <p>What is the <b>square root</b> of -1?<br>What times itself is less than zero?</p>
                     <p>Let's call the square root of -1 <b>i</b>.<br>All we know about <b>i</b> is that <b>i&Cross;i=-1</b>.</p>
-                    <p>There's no <b>i</b> on our left-right number line,<br>so it goes on a new <b>up-down</b> number line.</p>
+                    <p>There's no <b>i</b> on our <b>left-right</b> number line,<br>so it goes on a new <b>up-down</b> number line.</p>
                 </div>
                 <div class="displays" id="squareDisplays">
-                    <canvas class="dynamicCanvas" id="rootCanvas" width="256" height="256"></canvas>
-                    <div class="operator" id="operator" style="width:180px;">square()=</div>
                     <canvas class="dynamicCanvas" id="squareCanvas" width="256" height="256"></canvas>
+                    <div class="operator" id="operator" style="width:180px;"><div id="squareValue">1</div>=(<div id="rootValue">1</div>)<sup>2</sup></div>
+                    <canvas class="dynamicCanvas" id="rootCanvas" width="256" height="256"></canvas>
                 </div>
             </div>
 
@@ -212,10 +222,11 @@ iframe {
                     <div class="operator" id="equals" style="width:30px;"><b>=</b></div>
                     <canvas class="staticCanvas" id="cCanvas" width="256" height="256"></canvas>
                 </div>
-<!--                 <div class="animations">
-                    <div class="animation" id="animation0">Circles</div>
-                    <div class="animation" id="animation1">Circles</div>
-                </div> -->
+                <div class="animations">
+                    <div class="animation" id="animation0">Left–Right</div>
+                    <div class="animation" id="animation1">Up–Down</div>
+                    <div class="animation" id="animation2">Circles</div>
+                </div>
             </div>
 
             <hr>
@@ -233,6 +244,11 @@ iframe {
                     <canvas class="dynamicCanvas" id="bCanvas" width="256" height="256"></canvas>
                     <div class="operator" id="equals" style="width:30px;"><b>=</b></div>
                     <canvas class="staticCanvas" id="cCanvas" width="256" height="256"></canvas>
+                </div>
+                <div class="animations">
+                    <div class="animation" id="animation0">Left–Right</div>
+                    <div class="animation" id="animation1">Up–Down</div>
+                    <div class="animation" id="animation2">Circles</div>
                 </div>
             </div>
 

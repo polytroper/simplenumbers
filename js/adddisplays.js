@@ -7,7 +7,11 @@ BinaryOperator = function(spec){
 	var aCanvas = element.querySelector("#aCanvas");
 	var bCanvas = element.querySelector("#bCanvas");
 	var cCanvas = element.querySelector("#cCanvas");
+
 	var operator = element.querySelector("#operator");
+	var animation0 = element.parentNode.querySelector("#animation0");
+	var animation1 = element.parentNode.querySelector("#animation1");
+	var animation2 = element.parentNode.querySelector("#animation2");
 
 	var operandValue = math.complex(1, 0);
 
@@ -27,7 +31,30 @@ BinaryOperator = function(spec){
 	];
 
 	var outValues = [];
+	var expression = null;
 
+	var timerId = 0;
+    var FPS = 60;
+    var time = 0;
+    var timeDelta = 1;
+
+    var start = function(){
+        timeDelta = 1/FPS;
+        timerId = setInterval(function() {
+          update();
+        }, 1000/FPS);
+
+        update();
+    }
+
+    var update = function() {
+        time = time+timeDelta;
+
+        if (expression != null) {
+        	var v = expression.eval({t: time});
+        	setOperandValue(v);
+        }
+    }
 
 	var setOperandValue = function(OPERANDVALUE){
 		operandValue = makeComplex(OPERANDVALUE);
@@ -72,6 +99,22 @@ BinaryOperator = function(spec){
 		setOperandValue(operandValue);
 	}
 
+	var onAnimation0Click = function(){
+		expression = math.compile("sin(t*pi/2)");
+	}
+
+	var onAnimation1Click = function(){
+		expression = math.compile("sin(t*pi/2)*i");
+	}
+
+	var onAnimation2Click = function(){
+		expression = math.compile("e^(t*pi*i/2)");
+	}
+
+	var clearExpression = function(){
+		expression = null;
+	}
+
 	var inDisplay = InDisplay({
 		canvas: aCanvas,
 		setOperandValue,
@@ -83,6 +126,7 @@ BinaryOperator = function(spec){
 		canvas: bCanvas,
 		setOperandValue,
 		getOperandValue,
+		clearExpression,
 	});
 
 	var outDisplay = OutDisplay({
@@ -96,6 +140,13 @@ BinaryOperator = function(spec){
 	setOperandValue(math.complex(2, 2));
 
 	operator.addEventListener("click", onOperatorClick);
+
+	animation0.addEventListener("click", onAnimation0Click);
+	animation1.addEventListener("click", onAnimation1Click);
+	animation2.addEventListener("click", onAnimation2Click);
+	onAnimation2Click();
+
+	start();
 
 	return Object.freeze({
 
@@ -194,6 +245,7 @@ OperandDisplay = function(spec){
 		canvas,
 		setOperandValue,
 		getOperandValue,
+		clearExpression,
 	} = spec;
 
 	var layer = Layer({
@@ -243,6 +295,7 @@ OperandDisplay = function(spec){
 			var y = untransformY(event.offsetY);
 			value = math.complex(trunc(x, 1), trunc(y, 1));
 			setOperandValue(value);
+			clearExpression();
 			return true;
 		}
 	}

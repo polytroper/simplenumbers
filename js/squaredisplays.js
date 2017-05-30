@@ -7,6 +7,9 @@ SquareRoot = function(spec){
 	var rootCanvas = element.querySelector("#rootCanvas");
 	var operator = element.querySelector("#operator");
 
+	var rootValueElement = operator.querySelector("#rootValue");
+	var squareValueElement = operator.querySelector("#squareValue");
+
 	var squareValue = math.complex(1, 0);
 	var rootValue = math.complex(1, 0);
 
@@ -15,7 +18,8 @@ SquareRoot = function(spec){
 		rootValue = makeComplex(math.sqrt(squareValue));
 		squareDisplay.redraw();
 		rootDisplay.redraw();
-		refreshOperator();
+		rootDisplay.refreshValueElement();
+		squareDisplay.refreshValueElement();
 	}
 	var getSquareValue = function(){
 		return squareValue;
@@ -26,7 +30,8 @@ SquareRoot = function(spec){
 		squareValue = makeComplex(math.pow(rootValue, 2));
 		squareDisplay.redraw();
 		rootDisplay.redraw();
-		refreshOperator();
+		rootDisplay.refreshValueElement();
+		squareDisplay.refreshValueElement();
 	}
 	var getRootValue = function(){
 		return rootValue;
@@ -53,7 +58,7 @@ SquareRoot = function(spec){
 		// 	str += v+" &Cross; "+v;
 		// }
 		str += ")<sup>2</sup> = "+trunc(squareValue.re, 1);
-		operator.innerHTML = str;
+		//operator.innerHTML = str;
 	}
 
 	var squareDisplay = SquareDisplay({
@@ -63,6 +68,7 @@ SquareRoot = function(spec){
 		setRootValue,
 		getRootValue,
 		interactive: true,//invertInteraction,
+		valueElement: squareValueElement,
 	});
 
 	var rootDisplay = RootDisplay({
@@ -72,6 +78,7 @@ SquareRoot = function(spec){
 		setRootValue,
 		getRootValue,
 		interactive: true,//!invertInteraction,
+		valueElement: rootValueElement,
 	});
 
 	squareDisplay.redraw();
@@ -92,6 +99,7 @@ SquareDisplay = function(spec){
 		setRootValue,
 		getRootValue,
 		interactive,
+		valueElement,
 	} = spec;
 
 	var layer = Layer({
@@ -101,6 +109,8 @@ SquareDisplay = function(spec){
 
 	var maximum = 5;
 	var resolution = parseInt(canvas.width);
+
+	var enter = false;
 
 	var draw = function(context){
 		var squareValue = getSquareValue();
@@ -144,6 +154,29 @@ SquareDisplay = function(spec){
 		
 	}
 
+	var onPointerEnter = function(event){
+		enter = true;
+		refreshValueElement();
+		return true;
+	}
+	var onPointerExit = function(event){
+		enter = false;
+		refreshValueElement();
+		return true;
+	}
+
+	var refreshValueElement = function(){
+		var str = "";
+		var v = getSquareValue();
+		if (trunc(v.im, 1) != 0) {
+			str += trunc(v.im, 1)+"i";
+		}
+		else str += trunc(v.re, 1);
+		valueElement.innerHTML = str;
+		if (enter) valueElement.style.color = "#F80";
+		else valueElement.style.color = "#222";
+	}
+
 	var scaleX = function(v){
 		return v*resolution/(maximum*2);
 	}
@@ -178,13 +211,18 @@ SquareDisplay = function(spec){
 
 	layer.addComponent({
 		draw,
+
 		onMouseMove,
 		onMouseDown,
 		onMouseUp,
+		
+		onPointerEnter,
+		onPointerExit,
 	});
 
 	return Object.freeze({
 		redraw,
+		refreshValueElement,
 	});
 }
 
@@ -196,6 +234,7 @@ RootDisplay = function(spec){
 		setRootValue,
 		getRootValue,
 		interactive,
+		valueElement,
 	} = spec;
 
 	var layer = Layer({
@@ -205,6 +244,8 @@ RootDisplay = function(spec){
 
 	var maximum = 5;
 	var resolution = parseInt(canvas.width);
+
+	var enter = false;
 
 	var draw = function(context){
 		var rootValue = getRootValue();
@@ -250,6 +291,29 @@ RootDisplay = function(spec){
 		
 	}
 
+	var onPointerEnter = function(event){
+		enter = true;
+		refreshValueElement();
+		return true;
+	}
+	var onPointerExit = function(event){
+		enter = false;
+		refreshValueElement();
+		return true;
+	}
+
+	var refreshValueElement = function(){
+		var str = "";
+		var v = getRootValue();
+		if (v.im != 0) {
+			str += trunc(v.im, 1)+"i";
+		}
+		else str += trunc(v.re, 1);
+		valueElement.innerHTML = str;
+		if (enter) valueElement.style.color = "#F80";
+		else valueElement.style.color = "#222";
+	}
+
 	var scaleX = function(v){
 		return v*resolution/(maximum*2);
 	}
@@ -282,12 +346,17 @@ RootDisplay = function(spec){
 
 	layer.addComponent({
 		draw,
+
 		onMouseMove,
 		onMouseDown,
 		onMouseUp,
+
+		onPointerEnter,
+		onPointerExit,
 	});
 
 	return Object.freeze({
 		redraw,
+		refreshValueElement,
 	});
 }
