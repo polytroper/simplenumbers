@@ -217,13 +217,15 @@ function Layer(spec){
             clientX: touch.clientX,
             clientY: touch.clientY,
             offsetX: touch.offsetX,
-            offsetY: isChrome ? touch.offsetY-touch.target.offsetTop : touch.offsetY,
+            offsetY: isChrome ? touch.offsetY-touch.target.scrollTop : touch.offsetY,
             pageX: touch.pageX,
             pageY: touch.pageY,
             screenX: touch.screenX,
             screenY: touch.screenY,
         });
         canvas.dispatchEvent(mouseEvent);
+
+        if (isChrome) touch.target.style.borderWidth = "4px";
     }
 
     var onTouchEnd = function(event){
@@ -241,7 +243,7 @@ function Layer(spec){
             clientX: touch.clientX,
             clientY: touch.clientY,
             offsetX: touch.offsetX,
-            offsetY: isChrome ? touch.offsetY-touch.target.offsetTop : touch.offsetY,
+            offsetY: isChrome ? touch.offsetY-touch.target.scrollTop : touch.offsetY,
             pageX: touch.pageX,
             pageY: touch.pageY,
             screenX: touch.screenX,
