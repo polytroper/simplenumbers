@@ -214,16 +214,18 @@ function Layer(spec){
         var isChrome = navigator.userAgent.indexOf("Chrome") != -1;
 
         var offsetY = touch.offsetY;
+        var clientY = touch.clientY;
         if (isChrome) {
             var rect = canvas.getBoundingClientRect();
             offsetY = touch.clientY-rect.top;
+            clientY = offsetY;
         }
 
         var mouseEvent = new MouseEvent("mousedown", {
             clientX: touch.clientX,
             clientY: touch.clientY,
             offsetX: touch.offsetX,
-            offsetY,
+            offsetY: 0,
             pageX: touch.pageX,
             pageY: touch.pageY,
             screenX: touch.screenX,
@@ -253,7 +255,7 @@ function Layer(spec){
             clientX: touch.clientX,
             clientY: touch.clientY,
             offsetX: touch.offsetX,
-            offsetY,
+            offsetY: 0,
             pageX: touch.pageX,
             pageY: touch.pageY,
             screenX: touch.screenX,
