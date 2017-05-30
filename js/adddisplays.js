@@ -34,9 +34,13 @@ BinaryOperator = function(spec){
 	var expression = null;
 
 	var timerId = 0;
-    var FPS = 60;
+    var FPS = 30;
     var time = 0;
     var timeDelta = 1;
+
+    var redraw = true;
+
+    var animationTimestamp = 0;
 
     var start = function(){
         timeDelta = 1/FPS;
@@ -45,6 +49,22 @@ BinaryOperator = function(spec){
         }, 1000/FPS);
 
         update();
+        window.requestAnimationFrame(step);
+    }
+
+    var step = function(timestamp) {
+        if (redraw) {
+            draw();
+            redraw = false;
+        }
+        animationTimestamp = timestamp;
+        window.requestAnimationFrame(step);
+    }
+
+    var draw = function() {
+    	for (var i = 0; i < layers.length; i++) {
+    		layers[i].draw();
+    	}
     }
 
     var update = function() {
@@ -53,7 +73,13 @@ BinaryOperator = function(spec){
         if (expression != null) {
         	var v = expression.eval({t: time});
         	setOperandValue(v);
+        	redraw = true;
         }
+
+    	for (var i = 0; i < layers.length; i++) {
+    		redraw = layers[i].update(time, timeDelta) || redraw;
+    	}
+
     }
 
 	var setOperandValue = function(OPERANDVALUE){
@@ -62,9 +88,9 @@ BinaryOperator = function(spec){
 		for (var i = 0; i < inValues.length; i++) {
 			outValues.push(operation(inValues[i], operandValue));
 		}
-		inDisplay.redraw();
-		operandDisplay.redraw();
-		outDisplay.redraw();
+    	for (var i = 0; i < layers.length; i++) {
+    		layers[i].refresh();
+    	}
 	}
 	var getOperandValue = function(){
 		return operandValue;
@@ -137,6 +163,8 @@ BinaryOperator = function(spec){
 		getOutValues,
 	});
 
+	var layers = [inDisplay.layer, operandDisplay.layer, outDisplay.layer];
+
 	setOperandValue(math.complex(2, 2));
 
 	operator.addEventListener("click", onOperatorClick);
@@ -188,7 +216,7 @@ InDisplay = function(spec){
 
 	var redraw = function(){
 		layer.refresh();
-		layer.draw();
+		//layer.draw();
 	}
 	
 	var onMouseMove = function(event){
@@ -237,6 +265,7 @@ InDisplay = function(spec){
 
 	return Object.freeze({
 		redraw,
+		layer,
 	});
 }
 
@@ -286,7 +315,7 @@ OperandDisplay = function(spec){
 
 	var redraw = function(){
 		layer.refresh();
-		layer.draw();
+		//layer.draw();
 	}
 
 	var onMouseMove = function(event){
@@ -347,6 +376,7 @@ OperandDisplay = function(spec){
 
 	return Object.freeze({
 		redraw,
+		layer,
 	});
 }
 
@@ -391,7 +421,7 @@ OutDisplay = function(spec){
 
 	var redraw = function(){
 		layer.refresh();
-		layer.draw();
+		//layer.draw();
 	}
 	
 	var onMouseMove = function(event){
@@ -443,6 +473,7 @@ OutDisplay = function(spec){
 
 	return Object.freeze({
 		redraw,
+		layer,
 	});
 }
 
