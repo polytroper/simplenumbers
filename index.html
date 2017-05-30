@@ -16,6 +16,20 @@ body{
     padding: 0;
 }
 
+hr {
+    width: 50%;
+    color: #CCC;
+}
+
+a {
+    text-decoration: none;
+
+}
+
+iframe {
+    margin-top: 32px;
+}
+
 .content {
     display: flex;
     flex-direction: column;
@@ -32,14 +46,14 @@ body{
 }
 
 .heading {
-    margin: 16px auto;
+    margin: 0px auto 40px auto;
 
-    font-size: 40px;
-    font-weight: bold;
+    font-size: 48px;
+    font-weight: normal;
 }
 
 .paragraph {
-    margin: 16px auto;
+    margin: 0px auto;
     font-size: 24px;
 
     text-align: center;
@@ -47,7 +61,7 @@ body{
 
 .displays {
     display: flex;
-    margin: 16px auto;
+    margin: 40px auto 0px auto;
 }
 
 .operator {
@@ -60,7 +74,32 @@ body{
     text-align: center;
 }
 
-.canvas {
+.operatorButton {
+    align-self: center;
+
+    width: 40px;
+    height: 40px;
+    line-height: 36px;
+
+    margin: 8px;
+
+    font-size: 24px;
+    text-align: center;
+
+    border-radius: 20px;
+    border: solid 1px black;
+
+    cursor: pointer;
+
+    transition: 0.5s;
+}
+
+.operatorButton:hover {
+    background-color: #666;
+    color: #FFF;
+}
+
+.dynamicCanvas {
     display: block;
     touch-action: none;
 
@@ -68,6 +107,49 @@ body{
     height: 256px;
 
     border: solid 1px black;
+
+    transition: 0.2s;
+}
+
+.dynamicCanvas:hover {
+    border-color: #F80;
+}
+
+.staticCanvas {
+    display: block;
+    touch-action: none;
+
+    width: 256px;
+    height: 256px;
+
+    border: dashed 1px #CCC;
+}
+
+.animations {
+    margin-top: 48px;
+
+}
+
+.animation {
+    margin: 16px auto;
+    width: 192px;
+    height: 40px;
+
+    line-height: 36px;
+    font-size: 24px;
+
+    transition: 0.5s;
+    text-align: center;
+
+    border: 1px solid black;
+    border-radius: 10px;
+
+    cursor: pointer;
+}
+
+.animation:hover {
+    background-color: #666;
+    color: #FFF;
 }
 
 </style>
@@ -99,52 +181,75 @@ body{
         
         <div class="content" id="content">
             <div class="section">
-                <div class="heading">Numbers on a Line</div>
+                <!-- <div class="heading">i&Cross;i = -1</div> -->
+                <div class="heading">i<sup>2</sup> = -1</div>
                 <div class="paragraph">
-                    <p><b>Square</b> any number, and you get another number.</p>
-                    <!-- <p><b>Square</b> any number, and you get another number.</p> -->
-                    <p><b>-1&Cross;-1=1</b>, so any <b>negative</b> number squared is a <b>positive</b> number.</p>
-                    <p>So what is the <b>square root</b> of a negative number? What times itself equals <b>-1</b>?</p>
-                    <p>Let's call the square root of -1 <b>i</b>. All we know about <b>i</b> is that <b>i&Cross;i=-1</b>.</p>
-                    <p>There's no <b>i</b> on our left-right number line, so it goes on a new <b>up-down</b> number line.</p>
+                    <p>What is the <b>square root</b> of -1?<br>What times itself is less than zero?</p>
+                    <p>Let's call the square root of -1 <b>i</b>.<br>All we know about <b>i</b> is that <b>i&Cross;i=-1</b>.</p>
+                    <p>There's no <b>i</b> on our left-right number line,<br>so it goes on a new <b>up-down</b> number line.</p>
                 </div>
                 <div class="displays" id="squareDisplays">
-                    <canvas class="canvas" id="rootCanvas" width="256" height="256"></canvas>
+                    <canvas class="dynamicCanvas" id="rootCanvas" width="256" height="256"></canvas>
                     <div class="operator" id="operator" style="width:180px;">square()=</div>
-                    <canvas class="canvas" id="squareCanvas" width="256" height="256"></canvas>
+                    <canvas class="dynamicCanvas" id="squareCanvas" width="256" height="256"></canvas>
                 </div>
             </div>
+
+            <hr>
 
             <div class="section">
                 <div class="heading">Points on a Plane</div>
                 <div class="paragraph">
-                    <p>Our two number lines make an <b>XY plane</b>. Each point is <b>X+Yi</b></p>
-                    <p>We can <b>add</b> points together. <b>2i+2i=4i</b>, just like <b>2+2=4</b></p>
-                    <p>Add any two points, and you get another point.</p>
-                    <p>Now we can move points around the plane!</p>
+                    <p>Our two number lines make an <b>XY plane</b>.</p>
+                    <p>Each point is <b>X+Yi</b>. We can <b>add</b> and <b>subtract</b> points.</p>
+                    <p><b>2+2=4</b>, and <b>2i+2i=4i</b>, so <b>(2+2i)+(2+2i)=4+4i</b></p>
+                    <p>Now we can move around the plane!</p>
                 </div>
                 <div class="displays" id="addDisplays">
-                    <canvas class="canvas" id="aCanvas" width="256" height="256"></canvas>
-                    <div class="operator" id="operator" style="width:30px;"><b>+</b></div>
-                    <canvas class="canvas" id="bCanvas" width="256" height="256"></canvas>
+                    <canvas class="staticCanvas" id="aCanvas" width="256" height="256"></canvas>
+                    <div class="operatorButton" id="operator"><b>+</b></div>
+                    <canvas class="dynamicCanvas" id="bCanvas" width="256" height="256"></canvas>
                     <div class="operator" id="equals" style="width:30px;"><b>=</b></div>
-                    <canvas class="canvas" id="cCanvas" width="256" height="256"></canvas>
+                    <canvas class="staticCanvas" id="cCanvas" width="256" height="256"></canvas>
                 </div>
+<!--                 <div class="animations">
+                    <div class="animation" id="animation0">Circles</div>
+                    <div class="animation" id="animation1">Circles</div>
+                </div> -->
             </div>
+
+            <hr>
 
             <div class="section">
                 <div class="heading">Magic</div>
                 <div class="paragraph">
-                    <p>We can also <b>multiply</b> points. Remember that <b>i&Cross;i=-1</b>, so <b>2i&Cross;3i=-6</b></p>
-                    <p>Multiplying a point will <b>scale</b> and <b>rotate</b> it.</p>
-                    <p>Now we can spin things around!</p>
+                    <p>We can also <b>multiply</b> points. Remember that <b>i&Cross;i=-1</b>, so <b>2i&Cross;3i=-6</b>.</p>
+                    <p>Multiplication <b>rotates</b> and <b>scales</b> complex numbers.</p>
+                    <p>Now we can stretch and spin!</p>
                 </div>
                 <div class="displays" id="multiplyDisplays">
-                    <canvas class="canvas" id="aCanvas" width="256" height="256"></canvas>
-                    <div class="operator" id="operator" style="width:30px;">&Cross;</div>
-                    <canvas class="canvas" id="bCanvas" width="256" height="256"></canvas>
+                    <canvas class="staticCanvas" id="aCanvas" width="256" height="256"></canvas>
+                    <div class="operatorButton" id="operator">&Cross;</div>
+                    <canvas class="dynamicCanvas" id="bCanvas" width="256" height="256"></canvas>
                     <div class="operator" id="equals" style="width:30px;"><b>=</b></div>
-                    <canvas class="canvas" id="cCanvas" width="256" height="256"></canvas>
+                    <canvas class="staticCanvas" id="cCanvas" width="256" height="256"></canvas>
+                </div>
+            </div>
+
+            <hr>
+
+            <div class="section">
+                <div class="paragraph">
+                    <p>The <b>Complex Plane</b> provides a simple and direct<br>connection between <b>algebra</b> and <b>geometry</b>.</p>
+                    <p>
+                        To learn more about the beautiful world of <b>Complex Analysis</b>,<br>I recommend
+                        <a href="https://www.amazon.com/Indras-Pearls-Vision-Felix-Klein/dp/1107564743/ref=sr_1_1?ie=UTF8&qid=1495988205&sr=8-1&keywords=indras+pearls">Indra's Pearls</a> and 
+                        <a href="https://www.amazon.com/Visual-Complex-Analysis-Tristan-Needham/dp/0198534469">Visual Complex Analysis</a>.
+                    </p>
+                    <p>
+                        If you're not looking to read a whole book, here's a 3-minute summary:<br>
+                    </p>
+                    <iframe width="560" height="315" src="https://www.youtube.com/embed/0z1fIsUNhO4" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
         </div>

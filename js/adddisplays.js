@@ -7,6 +7,7 @@ BinaryOperator = function(spec){
 	var aCanvas = element.querySelector("#aCanvas");
 	var bCanvas = element.querySelector("#bCanvas");
 	var cCanvas = element.querySelector("#cCanvas");
+	var operator = element.querySelector("#operator");
 
 	var operandValue = math.complex(1, 0);
 
@@ -26,6 +27,7 @@ BinaryOperator = function(spec){
 	];
 
 	var outValues = [];
+
 
 	var setOperandValue = function(OPERANDVALUE){
 		operandValue = makeComplex(OPERANDVALUE);
@@ -47,6 +49,27 @@ BinaryOperator = function(spec){
 
 	var getOutValues = function(){
 		return outValues;
+	}
+
+	var onOperatorClick = function(){
+		if (operation == math.multiply) {
+			operation = math.divide;
+			operator.innerHTML = "/";
+		}
+		else if (operation == math.divide) {
+			operation = math.multiply;
+			operator.innerHTML = "&Cross;";
+		}
+		else if (operation == math.add) {
+			operation = math.subtract;
+			operator.innerHTML = "&minus;";
+		}
+		else if (operation == math.subtract) {
+			operation = math.add;
+			operator.innerHTML = "&plus;";
+		}
+
+		setOperandValue(operandValue);
 	}
 
 	var inDisplay = InDisplay({
@@ -71,6 +94,8 @@ BinaryOperator = function(spec){
 	});
 
 	setOperandValue(math.complex(2, 2));
+
+	operator.addEventListener("click", onOperatorClick);
 
 	return Object.freeze({
 
@@ -116,13 +141,10 @@ InDisplay = function(spec){
 	}
 	
 	var onMouseMove = function(event){
-
 	}
 	var onMouseDown = function(event){
-		
 	}
 	var onMouseUp = function(event){
-		
 	}
 
 	var scaleX = function(v){
@@ -183,6 +205,8 @@ OperandDisplay = function(spec){
 	var resolution = parseInt(canvas.width);
 	var interactive = true;
 
+	var click = true;
+
 	var draw = function(context){
 		var operandValue = getOperandValue();
 
@@ -192,8 +216,8 @@ OperandDisplay = function(spec){
 
 		context.beginPath();
 		context.arc(x, y, r, 0, math.pi*2);
-		if (interactive) context.fillStyle = "#F80";
-		else context.fillStyle = "#888";
+		if (click) context.fillStyle = "#F80";
+		else context.fillStyle = "#08F";
 		context.fill();
 
 		drawArrow(context, math.complex(0, 0), operandValue, transformX, transformY, scaleX);
@@ -214,7 +238,7 @@ OperandDisplay = function(spec){
 	}
 
 	var onMouseMove = function(event){
-		if (interactive) {
+		if (interactive && click) {
 			var x = untransformX(event.offsetX);
 			var y = untransformY(event.offsetY);
 			value = math.complex(trunc(x, 1), trunc(y, 1));
@@ -223,9 +247,12 @@ OperandDisplay = function(spec){
 		}
 	}
 	var onMouseDown = function(event){
+		click = true;
+		onMouseMove(event);
 	}
 	var onMouseUp = function(event){
-		
+		click = false;
+		redraw();
 	}
 
 	var scaleX = function(v){
@@ -303,7 +330,7 @@ OutDisplay = function(spec){
 			else context.fillStyle = "#888";
 			context.fill();
 		}
-		
+
 		for (var i = 0; i < outValues.length; i++) {
 			drawArrow(context, inValues[i], outValues[i], transformX, transformY, scaleX);
 		}

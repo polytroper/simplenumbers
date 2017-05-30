@@ -212,7 +212,9 @@ function Layer(spec){
         var touch = event.touches[0];
         var mouseEvent = new MouseEvent("mousedown", {
             clientX: touch.clientX,
-            clientY: touch.clientY
+            clientY: touch.clientY,
+            offsetX: touch.offsetX,
+            offsetY: touch.offsetY,
         });
         canvas.dispatchEvent(mouseEvent);
     }
@@ -227,7 +229,9 @@ function Layer(spec){
         var touch = event.touches[0];
         var mouseEvent = new MouseEvent("mousemove", {
             clientX: touch.clientX,
-            clientY: touch.clientY
+            clientY: touch.clientY,
+            offsetX: touch.offsetX,
+            offsetY: touch.offsetY,
         });
         canvas.dispatchEvent(mouseEvent);
     }
@@ -238,11 +242,21 @@ function Layer(spec){
     }
     
     var onPointerEnter = function(event){
-        //field.weathervane.setShow(true);
+        for (var i = 0; i < components.length; i++) {
+            if (components[i].onPointerEnter) dirty = components[i].onPointerEnter(event) || dirty;
+        }
+        for (var i = 0; i < children.length; i++) {
+            dirty = (children[i].onPointerEnter(event) == true) || dirty;
+        }
     }
 
     var onPointerExit = function(event){
-        //field.weathervane.setShow(false);
+        for (var i = 0; i < components.length; i++) {
+            if (components[i].onPointerExit) dirty = components[i].onPointerExit(event) || dirty;
+        }
+        for (var i = 0; i < children.length; i++) {
+            dirty = (children[i].onPointerExit(event) == true) || dirty;
+        }
     }
 
     var destroy = function(){
@@ -294,6 +308,9 @@ function Layer(spec){
         canvas.addEventListener("touchend", onTouchEnd, false);
         canvas.addEventListener("touchcancel", onTouchCancel, false);
         canvas.addEventListener("touchmove", onTouchMove, false);
+
+        canvas.addEventListener("pointerenter", onPointerEnter, false);
+        canvas.addEventListener("pointerexit", onPointerExit, false);
     }
 
     return tr;

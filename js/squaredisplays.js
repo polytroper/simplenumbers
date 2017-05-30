@@ -111,7 +111,7 @@ SquareDisplay = function(spec){
 
 		context.beginPath();
 		context.arc(x, y, r, 0, math.pi*2);
-		if (interactive) context.fillStyle = "#08F";
+		if (interactive) context.fillStyle = "#F80";
 		else context.fillStyle = "#888";
 		context.fill();
 
