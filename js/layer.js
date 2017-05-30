@@ -212,11 +212,18 @@ function Layer(spec){
         var touch = event.touches[0];
         var mouseEvent = new MouseEvent("mousedown", {
             clientX: touch.clientX,
-            clientY: touch.offsetY,
+            clientY: touch.clientY,
             offsetX: touch.offsetX,
             offsetY: touch.offsetY,
         });
-        canvas.dispatchEvent(mouseEvent);
+
+        onMouseDown({
+            clientX: touch.clientX,
+            clientY: touch.clientY,
+            offsetX: touch.offsetX,
+            offsetY: touch.offsetY,
+        });
+        //canvas.dispatchEvent(mouseEvent);
     }
 
     var onTouchEnd = function(event){
@@ -229,11 +236,18 @@ function Layer(spec){
         var touch = event.touches[0];
         var mouseEvent = new MouseEvent("mousemove", {
             clientX: touch.clientX,
-            clientY: touch.offsetY,
+            clientY: touch.clientY,
             offsetX: touch.offsetX,
             offsetY: touch.offsetY,
         });
-        canvas.dispatchEvent(mouseEvent);
+
+        onMouseMove({
+            clientX: touch.clientX,
+            clientY: touch.clientY,
+            offsetX: touch.offsetX,
+            offsetY: touch.offsetY,
+        });
+        //canvas.dispatchEvent(mouseEvent);
     }
 
     var onTouchCancel = function(event){
