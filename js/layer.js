@@ -210,11 +210,14 @@ function Layer(spec){
     var onTouchStart = function(event){
         event.preventDefault();
         var touch = event.touches[0];
+
+        var isChrome = navigator.userAgent.indexOf("Chrome") != -1;
+
         var mouseEvent = new MouseEvent("mousedown", {
             clientX: touch.clientX,
             clientY: touch.clientY,
             offsetX: touch.offsetX,
-            offsetY: touch.offsetY,
+            offsetY: isChrome ? touch.offsetY-touch.target.offsetTop : touch.offsetY,
             pageX: touch.pageX,
             pageY: touch.pageY,
             screenX: touch.screenX,
@@ -231,11 +234,14 @@ function Layer(spec){
     var onTouchMove = function(event){
         event.preventDefault();
         var touch = event.touches[0];
+
+        var isChrome = navigator.userAgent.indexOf("Chrome") != -1;
+
         var mouseEvent = new MouseEvent("mousemove", {
             clientX: touch.clientX,
             clientY: touch.clientY,
             offsetX: touch.offsetX,
-            offsetY: touch.offsetY,
+            offsetY: isChrome ? touch.offsetY-touch.target.offsetTop : touch.offsetY,
             pageX: touch.pageX,
             pageY: touch.pageY,
             screenX: touch.screenX,

@@ -301,7 +301,7 @@ OperandDisplay = function(spec){
 
 		drawArrow(context, math.complex(0, 0), operandValue, transformX, transformY, scaleX);
 
-		context.font = "30px Geneva";
+		context.font = "28px Geneva";
 		var str = "";
 		str += trunc(operandValue.re, 1)+" + ";
 		str += trunc(operandValue.im, 1)+"i";

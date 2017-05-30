@@ -102,7 +102,7 @@ SquareDisplay = function(spec){
 		else context.fillStyle = "#888";
 		context.fill();
 
-		context.font = "30px Geneva Sans-Serif";
+		context.font = "28px Geneva Sans-Serif";
 		var v = getSquareValue();
 		var str = trunc(v.re, 1).toString();
 		context.fillStyle = "#444";
@@ -237,7 +237,7 @@ RootDisplay = function(spec){
 		else context.fillStyle = "#888";
 		context.fill();
 
-		context.font = "30px Geneva";
+		context.font = "28px Geneva";
 		var v = getRootValue();
 		var str = "";
 		if (v.im != 0) str += trunc(v.im, 1)+"i";
