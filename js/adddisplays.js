@@ -16,18 +16,16 @@ BinaryOperator = function(spec){
 	var operandValue = math.complex(1, 0);
 
 	var inValues = [
-		math.complex(-1, 2),
-		math.complex(1, 2),
+		math.complex(-1, 1.73),
+		math.complex(1, 1.73),
 
-		math.complex(-2, 0),
-		math.complex(-1.5, -0.5),
-		math.complex(-1, -0.75),
-		math.complex(-0.5, -0.9),
-		math.complex(0, -1),
-		math.complex(0.5, -0.9),
-		math.complex(1, -0.75),
-		math.complex(1.5, -0.5),
-		math.complex(2, 0),
+		math.complex(-1.85, -0.77),
+		math.complex(-1.41, -1.41),
+		math.complex(-0.77, -1.85),
+		math.complex(0, -2),
+		math.complex(0.77, -1.85),
+		math.complex(1.41, -1.41),
+		math.complex(1.85, -0.77),
 	];
 
 	var outValues = [];
@@ -107,19 +105,19 @@ BinaryOperator = function(spec){
 	var onOperatorClick = function(){
 		if (operation == math.multiply) {
 			operation = math.divide;
-			operator.innerHTML = "/";
+			operator.innerHTML = "<b>&divide;</b>";
 		}
 		else if (operation == math.divide) {
 			operation = math.multiply;
-			operator.innerHTML = "&Cross;";
+			operator.innerHTML = "<b>&Cross;</b>";
 		}
 		else if (operation == math.add) {
 			operation = math.subtract;
-			operator.innerHTML = "&minus;";
+			operator.innerHTML = "<b>&minus;</b>";
 		}
 		else if (operation == math.subtract) {
 			operation = math.add;
-			operator.innerHTML = "&plus;";
+			operator.innerHTML = "<b>&plus;</b>";
 		}
 
 		setOperandValue(operandValue);

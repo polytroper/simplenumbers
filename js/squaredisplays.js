@@ -10,8 +10,8 @@ SquareRoot = function(spec){
 	var rootValueElement = operator.querySelector("#rootValue");
 	var squareValueElement = operator.querySelector("#squareValue");
 
-	var squareValue = math.complex(1, 0);
-	var rootValue = math.complex(1, 0);
+	var squareValue = math.complex(-1, 0);
+	var rootValue = math.complex(0, 1);
 
 	var setSquareValue = function(SQUAREVALUE){
 		squareValue = makeComplex(SQUAREVALUE);
@@ -37,30 +37,6 @@ SquareRoot = function(spec){
 		return rootValue;
 	}
 
-	var refreshOperator = function(){
-		var str = "(";
-		if (rootValue.im != 0) {
-			var v = trunc(rootValue.im, 1);
-			str += v+"<b>i</b>";
-		}
-		else {
-			var v = trunc(rootValue.re, 1);
-			str += v;
-		}
-		// if (rootValue.im != 0) {
-		// 	var v = trunc(rootValue.im, 1);
-		// 	v = trail(v);
-		// 	str += v+"i &Cross; "+v+"i";
-		// }
-		// else {
-		// 	var v = trunc(rootValue.re, 1);
-		// 	v = trail(v);
-		// 	str += v+" &Cross; "+v;
-		// }
-		str += ")<sup>2</sup> = "+trunc(squareValue.re, 1);
-		//operator.innerHTML = str;
-	}
-
 	var squareDisplay = SquareDisplay({
 		canvas: squareCanvas,
 		setSquareValue,
@@ -84,7 +60,8 @@ SquareRoot = function(spec){
 	squareDisplay.redraw();
 	rootDisplay.redraw();
 
-	refreshOperator();
+	rootDisplay.refreshValueElement();
+	squareDisplay.refreshValueElement();
 
 	return Object.freeze({
 
@@ -169,7 +146,7 @@ SquareDisplay = function(spec){
 		var str = "";
 		var v = getSquareValue();
 		if (trunc(v.im, 1) != 0) {
-			str += trunc(v.im, 1)+"i";
+			str += trunc(v.im, 1)+"<b>i</b>";
 		}
 		else str += trunc(v.re, 1);
 		valueElement.innerHTML = str;
@@ -306,7 +283,7 @@ RootDisplay = function(spec){
 		var str = "";
 		var v = getRootValue();
 		if (v.im != 0) {
-			str += trunc(v.im, 1)+"i";
+			str += trunc(v.im, 1)+"<b>i</b>";
 		}
 		else str += trunc(v.re, 1);
 		valueElement.innerHTML = str;
