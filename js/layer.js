@@ -211,25 +211,9 @@ function Layer(spec){
         event.preventDefault();
         var touch = event.touches[0];
 
-        var isChrome = navigator.userAgent.indexOf("Chrome") != -1;
-
-        var offsetY = touch.offsetY;
-        var clientY = touch.clientY;
-        if (isChrome) {
-            var rect = canvas.getBoundingClientRect();
-            offsetY = touch.clientY-rect.top;
-            clientY = offsetY;
-        }
-
         var mouseEvent = new MouseEvent("mousedown", {
             clientX: touch.clientX,
             clientY: touch.clientY,
-            offsetX: touch.offsetX,
-            offsetY: 0,
-            pageX: touch.pageX,
-            pageY: touch.pageY,
-            screenX: touch.screenX,
-            screenY: touch.screenY,
         });
         canvas.dispatchEvent(mouseEvent);
     }
@@ -243,23 +227,9 @@ function Layer(spec){
         event.preventDefault();
         var touch = event.touches[0];
 
-        var isChrome = navigator.userAgent.indexOf("Chrome") != -1;
-
-        var offsetY = touch.offsetY;
-        if (isChrome) {
-            var rect = canvas.getBoundingClientRect();
-            offsetY = touch.clientY-rect.top;
-        }
-
         var mouseEvent = new MouseEvent("mousemove", {
             clientX: touch.clientX,
             clientY: touch.clientY,
-            offsetX: touch.offsetX,
-            offsetY: 0,
-            pageX: touch.pageX,
-            pageY: touch.pageY,
-            screenX: touch.screenX,
-            screenY: touch.screenY,
         });
         canvas.dispatchEvent(mouseEvent);
     }
